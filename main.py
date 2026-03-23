@@ -1,20 +1,15 @@
-import os
 from playwright.sync_api import sync_playwright
-
-URL = "https://duesseldorf.ergoladesaeulen.de/wp-login.php?redirect_to=%2F"
-
-EMAIL = os.getenv("LOGIN_EMAIL")
-PASSWORD = os.getenv("LOGIN_PASSWORD")
+import config
 
 def run():
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=True)
         page = browser.new_page()
 
-        page.goto(URL)
+        page.goto(config.URL)
 
-        page.fill("#user_login", EMAIL)
-        page.fill("#user_pass", PASSWORD)
+        page.fill("#user_login", config.EMAIL)
+        page.fill("#user_pass", config.PASSWORD)
 
         page.press("#user_pass", "Enter")
         page.wait_for_load_state("networkidle")
