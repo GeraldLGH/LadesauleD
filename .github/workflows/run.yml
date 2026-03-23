@@ -6,6 +6,8 @@ on:
 jobs:
   run:
     runs-on: ubuntu-latest
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true   # Node.js 24 erzwingen
 
     steps:
       - name: 📥 Checkout
@@ -24,8 +26,10 @@ jobs:
       - name: ▶️ Run script
         run: python main.py
 
-      - name: 📸 Upload Screenshot
+      - name: 📸 Upload Screenshots
         uses: actions/upload-artifact@v4
         with:
-          name: screenshot
-          path: login_result.png
+          name: screenshots
+          path: |
+            1_after_login.png
+            2_after_morgen.png
