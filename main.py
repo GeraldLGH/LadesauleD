@@ -9,7 +9,7 @@ driver.get("https://duesseldorf.ergoladesaeulen.de/wp-login.php")
 time.sleep(2)
 
 input_field = driver.find_element(By.NAME, "username")
-input_field.send_keys("MeinName")
+input_field.send_keys("g.luettgens@itergo.de")
 
 time.sleep(2)
 driver.quit()
