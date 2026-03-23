@@ -17,6 +17,17 @@ with sync_playwright() as p:
     # 2️⃣ Warten bis die zweite Seite geladen ist
     page.wait_for_load_state('networkidle')
 
+
+    ### zum Test
+    page.screenshot(path="screenshot.png")
+    print("Screenshot gespeichert: screenshot.png")
+
+    page.screenshot(path="screenshot.png")
+with open("page.html", "w", encoding="utf-8") as f:
+    f.write(page.content())
+print("Screenshot und HTML gespeichert")
+
+
     # 3️⃣ Auf "morgen" klicken
     # page.click('button:has-text("morgen")')
     page.locator("text=Morgen").first.click()
