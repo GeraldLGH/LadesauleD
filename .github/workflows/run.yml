@@ -1,10 +1,10 @@
 name: Login Test
 
 on:
-  workflow_dispatch:   # nur manuell starten (für Test)
+  workflow_dispatch:
 
 jobs:
-  test-login:
+  run:
     runs-on: ubuntu-latest
 
     steps:
