@@ -1,7 +1,9 @@
-name: Test Run
+name: Night Run
 
 on:
-  workflow_dispatch:
+  workflow_dispatch:       # manuell starten
+  schedule:
+    - cron: "0 2 * * *"   # automatisch um 2 Uhr nachts
 
 jobs:
   run-script:
@@ -15,10 +17,10 @@ jobs:
         with:
           python-version: '3.10'
 
-      - name: Pakete installieren
+      - name: Abhängigkeiten installieren
         run: |
           pip install -r requirements.txt
-          playwright install
+          playwright install   # Browser installieren
 
       - name: Script starten
         run: python main.py
