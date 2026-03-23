@@ -1,5 +1,9 @@
 from playwright.sync_api import sync_playwright
 
+# Login-Daten
+USERNAME = "g.luettgens@itergo.com"
+PASSWORD = "m00racL.6005"
+
 with sync_playwright() as p:
     browser = p.chromium.launch(headless=True)
     page = browser.new_page()
