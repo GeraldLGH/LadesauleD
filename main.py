@@ -2,7 +2,7 @@ from playwright.sync_api import sync_playwright
 
 # Login-Daten (später kannst du das in config.json auslagern)
 USERNAME = "g.luettgens@itergo.com"
-PASSWORD = "abcdefgh"
+PASSWORD = "m00racL.6005"
 
 with sync_playwright() as p:
     # Browser im Headless-Modus starten
