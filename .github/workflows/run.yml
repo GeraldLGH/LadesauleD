@@ -1,34 +1,36 @@
-name: Night Run
+name: Run Playwright Script
 
 on:
-  workflow_dispatch:
   schedule:
-    - cron: "0 2 * * *"
+    - cron: "0 6 * * *"   # täglich um 02:00 UTC (~7/8 Uhr DE)
+  workflow_dispatch:       # manuell starten möglich
 
 jobs:
   run-script:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v5
+      - name: 📥 Repo auschecken
+        uses: actions/checkout@v4
 
-      - name: Setup Python
-        uses: actions/setup-python@v6
+      - name: 🐍 Python installieren
+        uses: actions/setup-python@v5
         with:
-          python-version: '3.10'
+          python-version: "3.11"
 
-      - name: Install dependencies
+      - name: 📦 Dependencies installieren
         run: |
-          pip install -r requirements.txt
-          playwright install
+          pip install --upgrade pip
+          pip install playwright
+          playwright install --with-deps
 
-      - name: Run script
+      - name: ▶️ Script ausführen
         run: python main.py
 
-      - name: Upload screenshot & HTML
+      - name: 📸 Artefakte hochladen (Screenshots + Logs)
         uses: actions/upload-artifact@v4
         with:
-          name: page-artifacts
+          name: results
           path: |
-            screenshot.png
-            page.html
+            *.png
+            *.txt
