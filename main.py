@@ -1,15 +1,8 @@
-from selenium import webdriver
-from selenium.webdriver.common.by import By
-import time
+from playwright.sync_api import sync_playwright
 
-driver = webdriver.Chrome()
-
-driver.get("https://duesseldorf.ergoladesaeulen.de/wp-login.php")
-
-time.sleep(2)
-
-input_field = driver.find_element(By.NAME, "username")
-input_field.send_keys("g.luettgens@itergo.de")
-
-time.sleep(2)
-driver.quit()
+with sync_playwright() as p:
+    browser = p.chromium.launch(headless=True)
+    page = browser.new_page()
+    page.goto("https://example.com")
+    print("Titel:", page.title())
+    browser.close()
