@@ -24,6 +24,7 @@ def run():
         page.screenshot(path="1_after_login.png", full_page=True)
 
         # 6. Auf "Morgen" klicken
+        # hier zum Test Heute
         try:
             page.get_by_text("Heute", exact=False).click()
         except Exception as e:
@@ -42,18 +43,10 @@ def run():
 
         # Tab zum zweiten Dropdown
         page.keyboard.press("Tab")
+        page.keyboard.press("ArrowDown")  # Zum ersten echten Eintrag springen
+        page.keyboard.press("Enter")      # Auswahl bestätigen
 
-        # Im zweiten Dropdown: letzte Option auswählen via Pfeiltasten
-        second_dropdown = page.locator("select").nth(1)
-        second_options = second_dropdown.locator("option")
-        count = second_options.count()
-
-        # Um zur letzten Option zu gelangen, drücken wir (count - 1) mal Pfeil runter
-        for _ in range(count - 1):
-            page.keyboard.press("ArrowDown")
-            time.sleep(0.1)  # kurzer Wait für Stabilität
-        page.keyboard.press("Enter")
-
+        
         # Optional Screenshot nach Dropdown Auswahl
         time.sleep(1)
         page.screenshot(path="3_after_dropdown.png", full_page=True)
