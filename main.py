@@ -25,7 +25,8 @@ def run():
 
         # 6. Auf "Morgen" klicken
         try:
-            page.get_by_text("Morgen", exact=False).click()
+        #    page.get_by_text("Morgen", exact=False).click()
+            page.get_by_text("Heute", exact=False).click()
         except Exception as e:
             print("Fehler beim Klicken auf 'Morgen':", e)
 
