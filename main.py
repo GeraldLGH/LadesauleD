@@ -16,7 +16,7 @@ def run():
         page.fill("#user_login", config["email"])
         page.fill("#user_pass", config["password"])
 
-        # 4. Enter
+        # 4. Enter drücken
         page.press("#user_pass", "Enter")
 
         # 5. Warten bis Login geladen
@@ -32,7 +32,7 @@ def run():
         time.sleep(3)
         page.screenshot(path="2_after_morgen.png", full_page=True)
 
-        # 8. Dropdowns für freien Slot auswählen
+        # 8/9. Dropdowns auswählen, Platzhalter überspringen
         selects = page.locator("select")
         first_dropdown = selects.nth(0)
         second_dropdown = selects.nth(1)
@@ -45,25 +45,35 @@ def run():
         log_text = ""
 
         try:
-            # 8A + 8B: erster Eintrag + letzter Eintrag
-            first_dropdown.select_option(index=0)
+            # 8A + 8B: erster "echter" Eintrag (index 1) + letzter Eintrag
+            first_dropdown.select_option(index=1)
             second_dropdown.select_option(index=second_count - 1)
-            selected_1 = first_options.nth(0).inner_text()
+
+            selected_1 = first_options.nth(1).inner_text()
             selected_2 = second_options.nth(second_count - 1).inner_text()
             log_text = f"Freier Slot: {selected_1} -> {selected_2}"
         except Exception:
-            # 9A + 9B: Fallback
-            first_dropdown.select_option(index=1)
+            # 9A + 9B: Fallback: zweiter Eintrag (index 2) + letzter Eintrag
+            first_dropdown.select_option(index=2)
             second_dropdown.select_option(index=second_count - 1)
-            selected_1 = first_options.nth(1).inner_text()
+
+            selected_1 = first_options.nth(2).inner_text()
             selected_2 = second_options.nth(second_count - 1).inner_text()
             log_text = f"Fallback Slot: {selected_1} -> {selected_2}"
 
-        # 8C / 9C Screenshot nach Auswahl
         time.sleep(1)
         page.screenshot(path="3_after_dropdown.png", full_page=True)
 
-        # Log ausgeben
+        # 10. Auf RESERVIEREN klicken
+        try:
+            page.get_by_role("button", name="RESERVIEREN").click()
+            time.sleep(3)
+            page.screenshot(path="4_after_reservieren.png", full_page=True)
+            log_text += "\nReservierung: Button geklickt"
+        except Exception as e:
+            log_text += f"\nReservierung: Fehler beim Klick auf RESERVIEREN - {e}"
+
+        # Log speichern
         print(log_text)
         with open("log.txt", "w", encoding="utf-8") as f:
             f.write(log_text)
