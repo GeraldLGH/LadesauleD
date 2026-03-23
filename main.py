@@ -18,7 +18,8 @@ with sync_playwright() as p:
     page.wait_for_load_state('networkidle')
 
     # 3️⃣ Auf "morgen" klicken
-    page.click('button:has-text("morgen")')
+    # page.click('button:has-text("morgen")')
+    page.locator("text=morgen").click()
 
     # 4️⃣ Funktion zum Slot auswählen
     def select_slot(first_option_index):
