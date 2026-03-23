@@ -1,4 +1,4 @@
-name: Night Run
+name: Test Run
 
 on:
   workflow_dispatch:
@@ -17,6 +17,9 @@ jobs:
 
       - name: Installiere Pakete
         run: pip install -r requirements.txt
+
+      - name: Installiere Chrome
+        run: sudo apt-get update && sudo apt-get install -y chromium-browser
 
       - name: Script starten
         run: python main.py
