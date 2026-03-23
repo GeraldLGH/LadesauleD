@@ -1,36 +1,31 @@
-name: Run Playwright Script
+name: Login Test
 
 on:
-  schedule:
-    - cron: "0 6 * * *"   # täglich um 02:00 UTC (~7/8 Uhr DE)
-  workflow_dispatch:       # manuell starten möglich
+  workflow_dispatch:   # nur manuell starten (für Test)
 
 jobs:
-  run-script:
+  test-login:
     runs-on: ubuntu-latest
 
     steps:
-      - name: 📥 Repo auschecken
+      - name: 📥 Checkout
         uses: actions/checkout@v4
 
-      - name: 🐍 Python installieren
+      - name: 🐍 Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
 
-      - name: 📦 Dependencies installieren
+      - name: 📦 Install dependencies
         run: |
-          pip install --upgrade pip
-          pip install playwright
+          pip install -r requirements.txt
           playwright install --with-deps
 
-      - name: ▶️ Script ausführen
+      - name: ▶️ Run script
         run: python main.py
 
-      - name: 📸 Artefakte hochladen (Screenshots + Logs)
+      - name: 📸 Upload Screenshot
         uses: actions/upload-artifact@v4
         with:
-          name: results
-          path: |
-            *.png
-            *.txt
+          name: screenshot
+          path: login_result.png
