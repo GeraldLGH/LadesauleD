@@ -19,12 +19,13 @@ with sync_playwright() as p:
 
 
     ### zum Test
-    page.screenshot(path="screenshot.png")
-    print("Screenshot gespeichert: screenshot.png")
+    # page.screenshot(path="screenshot.png")
+    # print("Screenshot gespeichert: screenshot.png")
 
     page.screenshot(path="screenshot.png")
 with open("page.html", "w", encoding="utf-8") as f:
     f.write(page.content())
+page.wait_for_timeout(3000)
 print("Screenshot und HTML gespeichert")
 
 
