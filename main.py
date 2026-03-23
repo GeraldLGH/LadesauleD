@@ -9,7 +9,7 @@ with sync_playwright() as p:
     page = browser.new_page()
 
     # Seite aufrufen
-    page.goto("hhttps://duesseldorf.ergoladesaeulen.de/wp-login.php?redirect_to=%2F")
+    page.goto("https://duesseldorf.ergoladesaeulen.de/wp-login.php?redirect_to=%2F")
     page.fill('input[name="log"]', USERNAME)
     page.fill('input[name="pwd"]', PASSWORD)
     page.press('input[name="pwd"]', 'Enter')
