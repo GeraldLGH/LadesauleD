@@ -1,14 +1,8 @@
-from playwright.sync_api import sync_playwright
-
-# Login-Daten (später kannst du das in config.json auslagern)
-USERNAME = "g.luettgens@itergo.com"
-PASSWORD = "m00racL.6005"
-
 from playwright.sync_api import sync_playwright, TimeoutError
 
 # Login-Daten
 USERNAME = "g.luettgens@itergo.com"
-PASSWORD = "abcdefgh"
+PASSWORD = "m00racL.6005"
 
 with sync_playwright() as p:
     browser = p.chromium.launch(headless=True)
