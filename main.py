@@ -7,36 +7,26 @@ PASSWORD = "m00racL.6005"
 
 def run():
     with sync_playwright() as p:
-        browser = p.chromium.launch(headless=False)  # True = ohne UI
+        browser = p.chromium.launch(headless=True)
         page = browser.new_page()
 
         # 1 Seite öffnen
         page.goto(URL)
 
-        # 2 + 3 Login
+        # 2 + 3 Felder ausfüllen
         page.fill("#user_login", EMAIL)
         page.fill("#user_pass", PASSWORD)
 
-        # 4 Enter
+        # 4 Enter drücken
         page.press("#user_pass", "Enter")
 
-        # Warten bis neue Seite geladen ist
+        # Warten bis Seite geladen ist
         page.wait_for_load_state("networkidle")
 
-        # Screenshot nach Login
-        page.screenshot(path="1_after_login.png")
+        # 5 Screenshot
+        page.screenshot(path="login_result.png", full_page=True)
 
-        
-
-        # Log speichern
-        with open("log.txt", "w", encoding="utf-8") as f:
-            f.write(log_text)
-
-        print(log_text)
-
-        page.wait_for_timeout(3000)
         browser.close()
-
 
 if __name__ == "__main__":
     run()
