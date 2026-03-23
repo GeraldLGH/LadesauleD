@@ -6,8 +6,8 @@ def run():
     config = load_config()
 
     with sync_playwright() as p:
-        # Browser sichtbar für Test, headless=True für GitHub später
-        browser = p.chromium.launch(headless=False)
+        # headless=True für GitHub Actions / Server
+        browser = p.chromium.launch(headless=True)
         page = browser.new_page()
 
         # 1. Webseite öffnen
@@ -33,7 +33,7 @@ def run():
             print("Fehler beim Klicken auf 'Morgen':", e)
 
         # Kurz warten, damit Seite vollständig lädt
-        time.sleep(3)
+        time.sleep(3000 / 1000)  # 3 Sekunden
 
         # Screenshot nach Klick auf "Morgen"
         page.screenshot(path="2_after_morgen.png", full_page=True)
