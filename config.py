@@ -1,4 +1,5 @@
-URL = "https://duesseldorf.ergoladesaeulen.de/wp-login.php?redirect_to=%2F"
+import json
 
-EMAIL = "g.luettgens@itergo.com"
-PASSWORD = "m00racL.6005"
+def load_config():
+    with open("config.json", "r", encoding="utf-8") as f:
+        return json.load(f)
