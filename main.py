@@ -6,7 +6,8 @@ def run():
     config = load_config()
 
     with sync_playwright() as p:
-        browser = p.chromium.launch(headless=True)
+        # Browser sichtbar für Test, headless=True für GitHub später
+        browser = p.chromium.launch(headless=False)
         page = browser.new_page()
 
         # 1. Webseite öffnen
@@ -19,8 +20,8 @@ def run():
         # 4. Enter
         page.press("#user_pass", "Enter")
 
-        # 5. Warten bis Login-Seite fertig geladen
-        page.wait_for_load_state("networkidle")
+        # 5. Kurz warten, bis Login-Seite vollständig geladen ist
+        page.wait_for_timeout(5000)
 
         # Screenshot nach Login
         page.screenshot(path="1_after_login.png", full_page=True)
@@ -31,8 +32,8 @@ def run():
         except Exception as e:
             print("Fehler beim Klicken auf 'Morgen':", e)
 
-        # Kurze Pause, damit Seite vollständig lädt
-        time.sleep(2)
+        # Kurz warten, damit Seite vollständig lädt
+        time.sleep(3)
 
         # Screenshot nach Klick auf "Morgen"
         page.screenshot(path="2_after_morgen.png", full_page=True)
