@@ -4,7 +4,7 @@ import time
 
 driver = webdriver.Chrome()
 
-driver.get("https://example.com")
+driver.get("https://duesseldorf.ergoladesaeulen.de/wp-login.php")
 
 time.sleep(2)
 
