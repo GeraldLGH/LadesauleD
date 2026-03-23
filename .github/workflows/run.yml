@@ -1,26 +1,40 @@
 name: Night Run
 
+# Workflow kann manuell oder automatisch ausgelöst werden
 on:
-  workflow_dispatch:       # manuell starten
+  workflow_dispatch:
   schedule:
-    - cron: "0 2 * * *"   # automatisch um 2 Uhr nachts
+    - cron: "0 2 * * *"  # optional: um 2 Uhr nachts
 
 jobs:
   run-script:
     runs-on: ubuntu-latest
 
     steps:
+      # 1️⃣ Code aus dem Repository auschecken
       - uses: actions/checkout@v5
 
-      - name: Python installieren
+      # 2️⃣ Python installieren
+      - name: Setup Python
         uses: actions/setup-python@v6
         with:
           python-version: '3.10'
 
-      - name: Abhängigkeiten installieren
+      # 3️⃣ Abhängigkeiten installieren
+      - name: Install dependencies
         run: |
           pip install -r requirements.txt
-          playwright install   # Browser installieren
+          playwright install
 
-      - name: Script starten
+      # 4️⃣ Playwright-Skript ausführen
+      - name: Run script
         run: python main.py
+
+      # 5️⃣ Screenshot & HTML als Artefakte hochladen
+      - name: Upload screenshot & HTML
+        uses: actions/upload-artifact@v3
+        with:
+          name: page-artifacts
+          path: |
+            screenshot.png
+            page.html
