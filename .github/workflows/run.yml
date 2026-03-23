@@ -1,4 +1,4 @@
-name: Login Test
+name: Ladesäulen Reservierung
 
 on:
   workflow_dispatch:
@@ -7,7 +7,7 @@ jobs:
   run:
     runs-on: ubuntu-latest
     env:
-      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true   # Node.js 24 erzwingen
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
     steps:
       - name: 📥 Checkout
@@ -26,10 +26,12 @@ jobs:
       - name: ▶️ Run script
         run: python main.py
 
-      - name: 📸 Upload Screenshots
+      - name: 📸 Upload Screenshots & Log
         uses: actions/upload-artifact@v4
         with:
-          name: screenshots
+          name: results
           path: |
             1_after_login.png
             2_after_morgen.png
+            3_after_dropdown.png
+            log.txt
