@@ -24,13 +24,13 @@ with sync_playwright() as p:
     print("Login-Screenshot und HTML gespeichert")
 
     # 4️⃣ Auf "Morgen" klicken (Teiltext)
-    try:
-        page.locator("text=Morgen").first.click()
-        print('"Morgen" angeklickt')
-    except TimeoutError:
-        print('Fehler: "Morgen" nicht gefunden')
-        browser.close()
-        exit(1)
+    ##try:
+    ##    page.locator("text=Morgen").first.click()
+    ##    print('"Morgen" angeklickt')
+    ## except TimeoutError:
+    ##    print('Fehler: "Morgen" nicht gefunden')
+    ##    browser.close()
+    ##    exit(1)
 
     # 5️⃣ Funktion zur Slot-Auswahl
     def select_slot(first_option_index):
